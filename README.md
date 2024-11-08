@@ -1,12 +1,13 @@
-# X-CLIP: End-to-End Multi-grained Contrastive Learning for Video-Text Retrieval
+# GLCCL: Global-Local Multi-grained Contrastive Consistent Learning for Text-Video Retrieval
 
-## Introduction
+Xiaolun Jing, Genke Yang, Jian Chu
 
-The implementation of paper [X-CLIP: End-to-End Multi-grained Contrastive Learning for Video-Text Retrieval](https://arxiv.org/abs/2207.07285 "X-CLIP: End-to-End Multi-grained Contrastive Learning for Video-Text Retrieval"). Accepted by ACMMM22. By [Yiwei Ma](https://github.com/xmu-xiaoma666 "Yiwei Ma"), [Guohai Xu](https://scholar.google.com/citations?user=bS8Ku4MAAAAJ\&hl=en "Guohai Xu"), [Xiaoshuai Sun](https://scholar.google.com/citations?user=KPMK3B4AAAAJ\&hl=en "Xiaoshuai Sun")\*, [Ming Yan](https://scholar.google.com/citations?user=uIUfGxYAAAAJ\&hl=zh-CN "Ming Yan"), [Ji Zhang](https://scholar.google.com/citations?user=cgnuJDUAAAAJ\&hl=zh-CN "Ji Zhang"), [Rongrong Ji](https://scholar.google.com/citations?user=lRSD7PQAAAAJ\&hl=en "Rongrong Ji").
+This is the official code implementation of the paper "GLCCL: Global-Local Multi-grained Contrastive Consistent Learning for Text-Video Retrieval", the checkpoint will be released soon.
 
+We are continuously refactoring our code, be patient and wait for the latest updates!
 
-
-X-CLIP adopts cross-grained contrastive learning and attention over similarity matrix module to filter out unnecessary information during video-text retrieval. It achieves SOTA results on MSR-VTT, MSVD, LSMDC, DiDeMo, and ActivityNet.
+## :star: Overview
+Text-video retrieval aims to find the most semantically similar videos with given text queries. However, since videos contain more diverse content than texts, the main semantics expressed by each text-video pair is often partially relevant. The primary methods involve the utilization of language-video attention module to better align texts and videos. Though effective, this paradigm inevitably introduces prohibitive computational overhead, resulting in inefficient retrieval. In this paper, we propose a simple yet effective method called Global-Local Contrastive Consistent Learning (GLCCL) to achieve texts and videos semantics alignment. Specifically, we design a parameter-free Global-Local Interaction Module (GLIM) to generate semantic-related frame and video features in a text-guided manner. Furthermore, we devise a Contrastive Score Consistency (CSC) loss to promote consistent learning among different scores on positive pairs and suppress consistent learning on negative pairs. Extensive experiments on the MSR-VTT, DiDeMo and VATEX datasets demonstrate the superiority of our approach. 
 
 <!-- ![XCLIP](./XCLIP.png) -->
 
