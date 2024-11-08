@@ -13,7 +13,7 @@ Text-video retrieval aims to find the most semantically similar videos with give
 Figure 1. Illustration of the partially related semantic correspondence between caption (words) and frames from MSR-VTT. Both textual features purely capture sub-regions of frames.
 
 ## :herb: Method
-![image](https://raw.githubusercontent.com/JingXiaolun/GLCCL/refs/heads/master/image/framework.jpg)
+![image](https://raw.githubusercontent.com/JingXiaolun/GLCCL/refs/heads/master/image/framework.jpg?token=GHSAT0AAAAAACY4XFD745BGL6VDGFQ3A6MQZZNYPXQ)
 Figure 2. Overview of our proposed Global-Local Contrastive Consistent Learning model (GLCCL). There are two key designs in GLCCL: (1) The global-local interaction module for generating semantically relevant video features with different granularity in a text-guided manner. (2) The contrastive score consistency loss for promoting positive pairs consistent learning and suppressing negative pairs consistent learning.
 
 ## :mag: Usage 
