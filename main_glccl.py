@@ -1,6 +1,6 @@
 # author: jingxiaolun
-# date: 2024.10.27
-# description: retrieval task training
+# date: 2024.12.01
+# description: GLCCL retrieval task training
 
 from __future__ import absolute_import
 from __future__ import division
@@ -24,8 +24,7 @@ import argparse
 from modules.tokenization_clip import SimpleTokenizer as ClipTokenizer
 from modules.file_utils import PYTORCH_PRETRAINED_BERT_CACHE
 
-#from modules.modeling_xclip_old import XCLIP
-from modules.modeling_xclip import XCLIP
+from modules.modeling_glccl import GLCCL
 
 from modules.optimization import BertAdam
 
@@ -36,7 +35,7 @@ torch.distributed.init_process_group(backend="nccl")
 
 global logger
 
-def get_args(description='X-CLIP on Retrieval Task'):
+def get_args(description='GLCCL on Retrieval Task'):
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("--do_pretrain", action='store_true', help="Whether to run training.")
     parser.add_argument("--do_train", action='store_true', help="Whether to run training.")
@@ -224,7 +223,7 @@ def init_model(args, device, n_gpu, local_rank):
 
     # Prepare model
     cache_dir = args.cache_dir if args.cache_dir else os.path.join(str(PYTORCH_PRETRAINED_BERT_CACHE), 'distributed')
-    model = XCLIP.from_pretrained(args.cross_model, cache_dir=cache_dir, state_dict=model_state_dict, task_config=args)
+    model = GLCCL.from_pretrained(args.cross_model, cache_dir=cache_dir, state_dict=model_state_dict, task_config=args)
 
     model.to(device)
 
@@ -302,7 +301,7 @@ def load_model(epoch, args, n_gpu, device, model_file=None):
             logger.info("Model loaded from %s", model_file)
         # Prepare model
         cache_dir = args.cache_dir if args.cache_dir else os.path.join(str(PYTORCH_PRETRAINED_BERT_CACHE), 'distributed')
-        model = XCLIP.from_pretrained(args.cross_model, cache_dir=cache_dir, state_dict=model_state_dict, task_config=args)
+        model = GLCCL.from_pretrained(args.cross_model, cache_dir=cache_dir, state_dict=model_state_dict, task_config=args)
 
         model.to(device)
     else:

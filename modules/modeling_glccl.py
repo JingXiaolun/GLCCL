@@ -19,9 +19,9 @@ logger = logging.getLogger(__name__)
 allgather = AllGather.apply
 
 
-class XCLIP(CLIP4ClipPreTrainedModel):
+class GLCCL(CLIP4ClipPreTrainedModel):
     def __init__(self, cross_config, clip_state_dict, task_config):
-        super(XCLIP, self).__init__(cross_config)
+        super(GLCCL, self).__init__(cross_config)
         self.task_config = task_config
         self.ignore_video_index = -1
 

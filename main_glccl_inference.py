@@ -1,6 +1,6 @@
 # author: jingxiaolun
-# date: 2023.08.29
-# description: retrieval task inference
+# date: 2024.12.01
+# description: glccl retrieval task inference
 
 from __future__ import absolute_import
 from __future__ import division
@@ -21,9 +21,7 @@ import argparse
 from modules.tokenization_clip import SimpleTokenizer as ClipTokenizer
 from modules.file_utils import PYTORCH_PRETRAINED_BERT_CACHE
 
-from modules.modeling_xclip_old import XCLIP
-#from modules.modeling_xclip import XCLIP
-#from modules.modeling_xclip_new import XCLIP
+from modules.modeling_glccl import GLCCL
 
 from modules.optimization import BertAdam
 from scipy.special import softmax
@@ -54,7 +52,7 @@ def get_args(description='X-Clip on Retrieval Task'):
     parser.add_argument('--negative_weighting', type=int, default=1, help='Weight the loss for intra negative')
     parser.add_argument('--n_pair', type=int, default=1, help='Num of pair to output from data loader')
 
-    parser.add_argument("--load_dir", default='../Model/Offical/xclip_msrvtt_vit32', type=str, required=False,
+    parser.add_argument("--load_dir", default='../Model/Offical/glccl_msrvtt_vit32', type=str, required=False,
                         help="The output directory where the checkpoints will be written.")
     parser.add_argument('--n_gpu', type=int, default=1, help="Changed in the execute process.")
 
@@ -148,7 +146,7 @@ def load_model(args, device):
         
         # Prepare model
         cache_dir = args.cache_dir if args.cache_dir else os.path.join(str(PYTORCH_PRETRAINED_BERT_CACHE), 'distributed')
-        model = XCLIP.from_pretrained(args.cross_model, cache_dir=cache_dir, state_dict=model_state_dict, task_config=args)
+        model = GLCCL.from_pretrained(args.cross_model, cache_dir=cache_dir, state_dict=model_state_dict, task_config=args)
 
         model.to(device)
     else:
