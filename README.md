@@ -13,71 +13,52 @@ Text-video retrieval aims to find the most semantically similar videos with give
 Figure 1. Illustration of the partially related semantic correspondence between caption (words) and frames from MSR-VTT. Both textual features purely capture sub-regions of frames.
 
 ## :herb: Method
-i![image](https://raw.githubusercontent.com/JingXiaolun/GLCCL/refs/heads/master/image/framework.jpg)
+![image](https://raw.githubusercontent.com/JingXiaolun/GLCCL/refs/heads/master/image/framework.jpg)
 Overview of our proposed Global-Local Contrastive Consistent Learning model (GLCCL). There are two key designs in GLCCL: (1) The global-local interaction module for generating semantically relevant video features with different granularity in a text-guided manner. (2) The contrastive score consistency loss for promoting positive pairs consistent learning and suppressing negative pairs consistent learning.
 
-## Requirement
+## :mag: Usage 
 
-*   [PyTorch](https://pytorch.org/ "PyTorch") version = 1.7.1
-
-*   Install other libraries via
-
+### Requirement
 ```bash
 pip install -r requirements.txt
 ```
+### Datasets
+We train our model on MSR-VTT, DiDeMo and VATEX datasets respectively. Please refer to this [repo](https://github.com/ArrowLuo/CLIP4Clip) for data preparation.
 
 ## How to Run
-
-（1）About data download
-
-Please refer to the guides from [CLIP4Clip: Data Preparing](https://github.com/ArrowLuo/CLIP4Clip#:~:text=Data-,Preparing,-For%20MSRVTT).
-
-
-
-（2）About the pretrained CLIP checkpoints
-
-You can find more pretrained models in [here](https://github.com/openai/CLIP/blob/main/clip/clip.py "here").
-
+Download CLIP (ViT-B/32) weight,
 ```bash
 # download CLIP（ViT-B/32） weight
 wget -P ./modules https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-B-32.pt
-
-# download CLIP（ViT-B/16） weight
+```
+or, download CLIP (ViT-B/16) weight,
+```bash
 wget -P ./modules https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt
 ```
+Then, run
 
-
-
-（3）About the running scripts
 
 **MSR-VTT**
 
 ```bash
-# ViT-B/32
-sh scripts/run_xclip_msrvtt_vit32.sh
-
-# ViT-B/16
-sh scripts/run_xclip_msrvtt_vit16.sh
-```
-
-**MSVD**
-
-```bash
-# ViT-B/32
-sh scripts/run_xclip_msvd_vit32.sh
-
-# ViT-B/16
-sh scripts/run_xclip_msvd_vit16.sh
-```
-
-**LSMDC**
-
-```bash
-# ViT-B/32
-sh scripts/run_xclip_lsmdc_vit32.sh
-
-# ViT-B/16
-sh scripts/run_xclip_lsmdc_vit16.sh
+python -m torch.distributed.launch --nproc_per_node=4 --master_port='30400' \
+main_glccl.py --do_train --num_thread_reader=8 \
+--epochs=5 --batch_size=128 --batch_size_val 64 --n_display=50 \
+--train_csv ${FILE_DATA_PATH}/MSRVTT_train.9k.csv \
+--val_csv ${FILE_DATA_PATH}/MSRVTT_JSFUSION_test.csv \
+--data_path ${FILE_DATA_PATH}/MSRVTT_data.json \
+--features_path ${VIDEO_DATA_PATH}/clip4clip_video_frame_input \
+--output_dir ../Model/Ablation/${JOB_NAME}/${ABLATION_TYPE}/${ABLATION_NAME} \
+--log_dir ../Log/Ablation/${JOB_NAME}/${ABLATION_TYPE}/${ABLATION_NAME} \
+--visualize_dir ../Visualize/Ablation/${JOB_NAME}/${ABLATION_TYPE}/${ABLATION_NAME} \
+--lr 1e-4 --max_words 32 --max_frames 12 \
+--datatype msrvtt --expand_msrvtt_sentences \
+--feature_framerate 1 --coef_lr 1e-3 \
+--freeze_layer_num 0  --slice_framepos 2 \ 
+--text_guided_flag --aggregation_weights_type softmax \
+--var_loss_flag --var_loss_weight 0.1 \
+--loose_type --linear_patch 2d --sim_header seqTransf \
+--pretrained_clip_name ViT-B/32
 ```
 
 **DiDeMo**
@@ -85,34 +66,15 @@ sh scripts/run_xclip_lsmdc_vit16.sh
 ```bash
 # ViT-B/32
 sh scripts/run_xclip_didemo_vit32.sh
-
-# ViT-B/16
-sh scripts/run_xclip_didemo_vit16.sh
 ```
 
-**ActivityNet**
+**VATEX**
 
 ```bash
 # ViT-B/32
 sh scripts/run_xclip_actnet_vit32.sh
-
-# ViT-B/16
-sh scripts/run_xclip_actnet_vit16.sh
-```
-
-## Citation
-
-If you find our method useful in your work, please cite:
-
-```python
-@article{Ma2022XCLIP,
-  title={{X-CLIP:}: End-to-End Multi-grained Contrastive Learning for Video-Text Retrieval},
-  author={Yiwei Ma and Guohai Xu and Xiaoshuai Sun and Ming Yan and Ji Zhang and Rongrong Ji},
-  journal={arXiv preprint arXiv:2207.07285},
-  year={2022}
-}
 ```
 
 ## Acknowledgments
 
-The implementation of X-CLIP relies on resources from [CLIP4Clip](https://github.com/ArrowLuo/CLIP4Clip "CLIP4Clip") and [CLIP](https://github.com/openai/CLIP "CLIP"). We thank the original authors for their open-sourcing.
+The implementation of GLCCL relies on resources from [CLIP4Clip](https://github.com/ArrowLuo/CLIP4Clip "CLIP4Clip") and [CLIP](https://github.com/openai/CLIP "CLIP"). We thank the original authors for their open-sourcing.
