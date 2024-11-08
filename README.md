@@ -14,7 +14,7 @@ Figure 1. Illustration of the partially related semantic correspondence between 
 
 ## :herb: Method
 ![image](https://raw.githubusercontent.com/JingXiaolun/GLCCL/refs/heads/master/image/framework.jpg)
-Overview of our proposed Global-Local Contrastive Consistent Learning model (GLCCL). There are two key designs in GLCCL: (1) The global-local interaction module for generating semantically relevant video features with different granularity in a text-guided manner. (2) The contrastive score consistency loss for promoting positive pairs consistent learning and suppressing negative pairs consistent learning.
+Figure 2. Overview of our proposed Global-Local Contrastive Consistent Learning model (GLCCL). There are two key designs in GLCCL: (1) The global-local interaction module for generating semantically relevant video features with different granularity in a text-guided manner. (2) The contrastive score consistency loss for promoting positive pairs consistent learning and suppressing negative pairs consistent learning.
 
 ## :mag: Usage 
 
@@ -45,18 +45,18 @@ python -m torch.distributed.launch --nproc_per_node=4 --master_port='30400' \
 main_glccl.py --do_train --num_thread_reader=8 \
 --epochs=5 --batch_size=128 --batch_size_val 64 --n_display=50 \
 --train_csv ${FILE_DATA_PATH}/MSRVTT_train.9k.csv \
---val_csv ${FILE_DATA_PATH}/MSRVTT_JSFUSION_test.csv \
---data_path ${FILE_DATA_PATH}/MSRVTT_data.json \
---features_path ${VIDEO_DATA_PATH}/clip4clip_video_frame_input \
---output_dir ../Model/Ablation/${JOB_NAME}/${ABLATION_TYPE}/${ABLATION_NAME} \
---log_dir ../Log/Ablation/${JOB_NAME}/${ABLATION_TYPE}/${ABLATION_NAME} \
---visualize_dir ../Visualize/Ablation/${JOB_NAME}/${ABLATION_TYPE}/${ABLATION_NAME} \
+--val_csv ../DataSet/MSRVTT/data/file/MSRVTT_JSFUSION_test.csv \
+--data_path ../DataSet/MSRVTT/data/file/MSRVTT_data.json \
+--features_path ../DataSet/MSRVTT/data/file/clip4clip_video_frame_input \
+--output_dir ../Model/glccl_msrvtt_vit32 \
+--log_dir ../Log/glccl_msrvtt_vit32 \
+--visualize_dir ../Visualize/glccl_msrvtt_vit32 \
 --lr 1e-4 --max_words 32 --max_frames 12 \
 --datatype msrvtt --expand_msrvtt_sentences \
 --feature_framerate 1 --coef_lr 1e-3 \
 --freeze_layer_num 0  --slice_framepos 2 \ 
 --text_guided_flag --aggregation_weights_type softmax \
---var_loss_flag --var_loss_weight 0.1 \
+--var_loss_flag --var_loss_weight 0.5 \
 --loose_type --linear_patch 2d --sim_header seqTransf \
 --pretrained_clip_name ViT-B/32
 ```
@@ -64,15 +64,43 @@ main_glccl.py --do_train --num_thread_reader=8 \
 **DiDeMo**
 
 ```bash
-# ViT-B/32
-sh scripts/run_xclip_didemo_vit32.sh
+python -m torch.distributed.launch --nproc_per_node=8 --master_port='30401' \
+main_glccl.py --do_train --num_thread_reader=8 \
+--epochs=20 --batch_size=64 --batch_size_val 32 --n_display=50 \
+--data_path ../DataSet/DiDeMo/data/compressed/split_file \
+--features_path ../DataSet/DiDeMo/data/compressed/split_video \
+--output_dir ../Model/glccl_didemo_vit32 \
+--log_dir ../Log/glccl_didemo_vit32 \
+--visualize_dir ../Visualize/glccl_didemo_vit32 \
+--lr 1e-4 --max_words 64 --max_frames 64 \
+--datatype didemo \
+--feature_framerate 1 --coef_lr 1e-3 \
+--freeze_layer_num 0  --slice_framepos 2 \
+--text_guided_flag --aggregation_weights_type softmax \
+--var_loss_flag --var_loss_weight 0.5 \
+--loose_type --linear_patch 2d --sim_header seqTransf \
+--pretrained_clip_name ViT-B/32
 ```
 
 **VATEX**
 
 ```bash
-# ViT-B/32
-sh scripts/run_xclip_actnet_vit32.sh
+python -m torch.distributed.launch --nproc_per_node=4 --master_port='30402' \
+main_glccl.py --do_train --num_thread_reader=8 \
+--epochs=5 --batch_size=128 --batch_size_val 128 --n_display=50 \
+--data_path ../DataSet/VATEX/data/compressed/split_file \
+--features_path ../DataSet/VATEX/data/compressed/clip4clip_video_frame_input \
+--output_dir ../Model/glccl_vatex_vit32 \
+--log_dir ../Log/glccl_vatex_vit32 \
+--visualize_dir ../Visualize/glccl_vatex_vit32 \
+--lr 1e-4 --max_words 32 --max_frames 12 \
+--datatype vatex \
+--feature_framerate 1 --coef_lr 1e-3 \
+--freeze_layer_num 0  --slice_framepos 2 \
+--text_guided_flag --aggregation_weights_type softmax \
+--var_loss_flag --var_loss_weight 0.5 \
+--loose_type --linear_patch 2d --sim_header seqTransf \
+--pretrained_clip_name ViT-B/32
 ```
 
 ## Acknowledgments
