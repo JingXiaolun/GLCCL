@@ -28,7 +28,6 @@ We train our model on MSR-VTT, DiDeMo and VATEX datasets respectively. Please re
 ## How to Run
 Download CLIP (ViT-B/32) weight,
 ```bash
-# download CLIP（ViT-B/32） weight
 wget -P ./modules https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-B-32.pt
 ```
 or, download CLIP (ViT-B/16) weight,
