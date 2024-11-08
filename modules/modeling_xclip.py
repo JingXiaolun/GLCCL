@@ -286,6 +286,23 @@ class XCLIP(CLIP4ClipPreTrainedModel):
         video_out = self._mean_pooling_for_similarity_visual(visual_output, video_mask)
 
         return text_out, video_out
+    
+    def _get_text_guided_video_features(self, text_feat, video_feat, temp=5):
+        dim = text_feat.shape[-1]
+
+        v_weight = torch.einsum('ad, bvd -> abv', [text_feat, video_feat]) # bs_text dim, bs_video num_frames dim -> bs_text bs_video num_frames 
+        if self.aggregation_weights_type == 'softmax':
+                v_weight = torch.softmax(v_weight / temp, dim=-1)
+        elif self.aggregation_weights_type == 'softmax_linear_softmax':
+                v_weight = torch.softmax(torch.matmul(torch.softmax(v_weight / temp, dim=-1), self.visual_logit_weight) / temp, dim=-1)
+        elif self.aggregation_weights_type == 'mlp_softmax':
+                v_weight = v_weight * int(dim ** (-0.5))
+                v_wight = self.mlp(v_weight)
+                v_weight = torch.softmax(v_weight / temp, dim=-1)
+
+        #v_weight = torch.einsum('abv, bv-> abv', [v_weight, video_mask]) # bs_text bs_video num_frames
+        video_feat_tc = torch.einsum('abv, bvd -> abd', [v_weight, video_feat]) # bs_text bs_video num_frames, bs_video num_frames dim -> bs_text bs_video dim
+        return video_feat_tc
 
     def _loose_similarity(self, sequence_output, seq_features, visual_output, attention_mask, video_mask, sim_header="meanP"):
         """
@@ -337,30 +354,17 @@ class XCLIP(CLIP4ClipPreTrainedModel):
             torch.distributed.barrier()
  
         if self.text_guided_flag:
-            # [bs, 1+num_words, dim]
-            text_feat = torch.cat([sequence_output, seq_features], dim=1)
-            video_feat = visual_output
-            dim = video_feat.shape[-1]
-            temp = 5
+            bs_text, num_words = seq_features.shape[:2]
 
-            v_weight = torch.einsum('atd, bvd -> abtv', [text_feat, video_feat]) # bs_text 1+num_words dim, bs_video num_frames dim -> bs_text bs_video 1+num_words num_frames 
-            if self.aggregation_weights_type == 'softmax':
-                v_weight = torch.softmax(v_weight / temp, dim=-1)
-            elif self.aggregation_weights_type == 'softmax_linear_softmax':
-                v_weight = torch.softmax(torch.matmul(torch.softmax(v_weight / temp, dim=-1), self.visual_logit_weight) / temp, dim=-1)
-            elif self.aggregation_weights_type == 'mlp_softmax':
-                v_weight = v_weight * int(dim ** (-0.5))
-                v_wight = self.mlp(v_weight)
-                v_weight = torch.softmax(v_weight / 5, dim=-1)
-
-            v_weight = torch.einsum('abtv, bv-> abtv', [v_weight, video_mask]) # bs_text bs_video 1+num_words num_frames
-            video_feat_tc = torch.einsum('abtv, bvd -> abtd', [v_weight, video_feat]) # bs_text bs_video 1+num_words num_frames, bs_video num_frames dim -> bs_text bs_video 1+num_words dim
-            
-            # [bs_text, bs_video, dim], [bs_text, bs_video, num_words, dim]
-            video_output, frame_features = video_feat_tc[:, :, 0], video_feat_tc[:, :, 1:]
-            video_output, frame_features = video_output.contiguous(), frame_features.contiguous()
-
+            video_output = self._get_text_guided_video_features(sequence_output.squeeze(1), visual_output)
             video_output = video_output / video_output.norm(dim=-1, keepdim=True)
+            
+            frame_features_list = []
+            for i in range(num_words):
+                sub_word_feature = seq_features[:, i] 
+                sub_frame_feature = self._get_text_guided_video_features(sub_word_feature, visual_output).unsqueeze(-2)
+                frame_features_list.append(sub_frame_feature)
+            frame_features = torch.cat(frame_features_list, dim=-2)
             frame_features = frame_features / frame_features.norm(dim=-1, keepdim=True)
         else:
             # video-level visual feature 
