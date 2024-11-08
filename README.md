@@ -101,6 +101,9 @@ main_glccl.py --do_train --num_thread_reader=8 \
 --loose_type --linear_patch 2d --sim_header seqTransf \
 --pretrained_clip_name ViT-B/32
 ```
+## :telescope: Experiments
+
+
 
 ## Acknowledgments
 
