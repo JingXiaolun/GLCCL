@@ -1,6 +1,6 @@
 # GLCCL: Global-Local Multi-grained Contrastive Consistent Learning for Text-Video Retrieval
 
-Xiaolun Jing, Genke Yang, Jian Chu
+[Xiaolun Jing](https://scholar.google.com/citations?hl=zh-CN&user=LsozN5kAAAAJ), Genke Yang, Jian Chu
 
 This is the official code implementation of the paper "GLCCL: Global-Local Multi-grained Contrastive Consistent Learning for Text-Video Retrieval", the checkpoint will be released soon.
 
