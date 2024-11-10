@@ -128,15 +128,6 @@ class GLCCL(CLIP4ClipPreTrainedModel):
 
         # self.text_guided_flag
         self.text_guided_flag = task_config.text_guided_flag
-        if self.text_guided_flag:
-            self.aggregation_weights_type = task_config.aggregation_weights_type
-
-            if self.aggregation_weights_type == 'mlp_softmax':
-                self.mlp = nn.Sequential(
-                    nn.Linear(num_frames, num_frames * 2),
-                    nn.ReLU(inplace=True),
-                    nn.Linear(num_frames * 2, num_frames)
-                    )
 
         # set interaction_type
         self.interaction_type = task_config.interaction_type
@@ -288,19 +279,9 @@ class GLCCL(CLIP4ClipPreTrainedModel):
         return text_out, video_out
     
     def _get_text_guided_video_features(self, text_feat, video_feat, temp=5):
-        dim = text_feat.shape[-1]
-
         v_weight = torch.einsum('ad, bvd -> abv', [text_feat, video_feat]) # bs_text dim, bs_video num_frames dim -> bs_text bs_video num_frames 
-        if self.aggregation_weights_type == 'softmax':
-                v_weight = torch.softmax(v_weight / temp, dim=-1)
-        elif self.aggregation_weights_type == 'softmax_linear_softmax':
-                v_weight = torch.softmax(torch.matmul(torch.softmax(v_weight / temp, dim=-1), self.visual_logit_weight) / temp, dim=-1)
-        elif self.aggregation_weights_type == 'mlp_softmax':
-                v_weight = v_weight * int(dim ** (-0.5))
-                v_wight = self.mlp(v_weight)
-                v_weight = torch.softmax(v_weight / temp, dim=-1)
+        v_weight = torch.softmax(v_weight / temp, dim=-1)
 
-        #v_weight = torch.einsum('abv, bv-> abv', [v_weight, video_mask]) # bs_text bs_video num_frames
         video_feat_tc = torch.einsum('abv, bvd -> abd', [v_weight, video_feat]) # bs_text bs_video num_frames, bs_video num_frames dim -> bs_text bs_video dim
         return video_feat_tc
 
@@ -356,9 +337,11 @@ class GLCCL(CLIP4ClipPreTrainedModel):
         if self.text_guided_flag:
             bs_text, num_words = seq_features.shape[:2]
 
+            # text_guided_level: global
             video_output = self._get_text_guided_video_features(sequence_output.squeeze(1), visual_output)
             video_output = video_output / video_output.norm(dim=-1, keepdim=True)
             
+            # text_guided_level: local
             frame_features_list = []
             for i in range(num_words):
                 sub_word_feature = seq_features[:, i] 

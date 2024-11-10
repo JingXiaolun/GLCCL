@@ -105,7 +105,7 @@ main_glccl.py --do_train --num_thread_reader=8 \
 ## :telescope: Experiments
 ![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/results.jpg?raw=true)
 
-## :wrench: Visualization
+## :bell: Visualization
 ![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/visualization.jpg?raw=true)
 
 ## Acknowledgments

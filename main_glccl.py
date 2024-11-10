@@ -100,12 +100,11 @@ def get_args(description='GLCCL on Retrieval Task'):
     parser.add_argument('--sampled_use_mil', action='store_true', help="Whether MIL, has a high priority than use_mil.")
 
     parser.add_argument('--text_guided_flag', action='store_true', help="Whether the visual features are generated in a text-guided manner")
-    parser.add_argument('--aggregation_weights_type', type=str, default='softmax', choices=['softmax', 'softmax_linear_softmax', 'mlp_softmax'], help='type of aggregation weights')
     
     parser.add_argument('--var_loss_flag', action='store_true', help='Whether to use var_loss')
     parser.add_argument('--var_loss_weight', type=float, default=0.1, help="var_loss_weight")
     
-    parser.add_argument('--interaction_type', type=str, default='attn', choices=['ti', 'wti', 'max-max', 'mean-mean', 'mean-max', 'attn', 'ISA', 'LISA_GISA', 'WISA', 'PISA'], help='cross-modal interaction at frame-word level')
+    parser.add_argument('--interaction_type', type=str, default='attn', choices=['ti', 'wti', 'max-max', 'mean-mean', 'mean-max', 'attn'], help='cross-modal interaction at frame-word level')
     parser.add_argument('--window_size', type=int, default=2, help="window size")
     parser.add_argument('--pale_size', type=int, default=4, help="pale size")
 
