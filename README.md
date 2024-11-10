@@ -103,8 +103,10 @@ main_glccl.py --do_train --num_thread_reader=8 \
 ```
 
 ## :telescope: Experiments
-![image](https://raw.githubusercontent.com/JingXiaolun/GLCCL/refs/heads/master/image/results.jpg)
+![image](https://raw.githubusercontent.com/JingXiaolun/GLCCL/refs/heads/master/image/results.jpg?token=GHSAT0AAAAAAC2HXBYXYIEQTCEXLC7AD3G4ZZQJ55Q)
 
+## :wrench: Visualization
+![image](https://raw.githubusercontent.com/JingXiaolun/GLCCL/refs/heads/master/image/results.jpg?token=GHSAT0AAAAAAC2HXBYXYIEQTCEXLC7AD3G4ZZQJ55Q)
 
 ## Acknowledgments
 
