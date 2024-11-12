@@ -55,7 +55,7 @@ main_glccl.py --do_train --num_thread_reader=8 \
 --feature_framerate 1 --coef_lr 1e-3 \
 --freeze_layer_num 0  --slice_framepos 2 \ 
 --text_guided_flag --aggregation_weights_type softmax \
---var_loss_flag --var_loss_weight 0.5 \
+--csc_loss_flag --csc_loss_weight 0.5 \
 --loose_type --linear_patch 2d --sim_header seqTransf \
 --pretrained_clip_name ViT-B/32
 ```
@@ -76,7 +76,7 @@ main_glccl.py --do_train --num_thread_reader=8 \
 --feature_framerate 1 --coef_lr 1e-3 \
 --freeze_layer_num 0  --slice_framepos 2 \
 --text_guided_flag --aggregation_weights_type softmax \
---var_loss_flag --var_loss_weight 0.5 \
+--csc_loss_flag --csc_loss_weight 0.5 \
 --loose_type --linear_patch 2d --sim_header seqTransf \
 --pretrained_clip_name ViT-B/32
 ```
@@ -97,7 +97,7 @@ main_glccl.py --do_train --num_thread_reader=8 \
 --feature_framerate 1 --coef_lr 1e-3 \
 --freeze_layer_num 0  --slice_framepos 2 \
 --text_guided_flag --aggregation_weights_type softmax \
---var_loss_flag --var_loss_weight 0.5 \
+--csc_loss_flag --csc_loss_weight 0.5 \
 --loose_type --linear_patch 2d --sim_header seqTransf \
 --pretrained_clip_name ViT-B/32
 ```

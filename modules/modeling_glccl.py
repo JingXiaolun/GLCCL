@@ -132,12 +132,11 @@ class GLCCL(CLIP4ClipPreTrainedModel):
         # set interaction_type
         self.interaction_type = task_config.interaction_type
 
-        # self.var_loss_flag
-        self.var_loss_flag = task_config.var_loss_flag
-        if self.var_loss_flag:
-            self.var_loss_weight = task_config.var_loss_weight
+        # self.csc_loss_flag
+        self.csc_loss_flag = task_config.csc_loss_flag
+        if self.csc_loss_flag:
+            self.csc_loss_weight = task_config.csc_loss_weight
             
-
         # for coarse-grained constrast weights
         self.global_mat_weight = nn.parameter.Parameter(torch.eye(embed_dim), requires_grad=True)
 
@@ -183,7 +182,7 @@ class GLCCL(CLIP4ClipPreTrainedModel):
             sim_loss = (sim_loss1 + sim_loss2) / 2
             loss += sim_loss
 
-            if self.var_loss_flag:
+            if self.csc_loss_flag:
                 sim_matrix_ = torch.stack(sim_matrix_list)
                 sim_matrix_var = torch.var(sim_matrix_, dim=0)
                 var_mean_dia = torch.mean(torch.diagonal(sim_matrix_var))
@@ -192,9 +191,9 @@ class GLCCL(CLIP4ClipPreTrainedModel):
                 sim_matrix_var_tem.fill_diagonal_(0)
                 var_mean_non_dia = torch.mean(sim_matrix_var_tem)
 
-                var_loss = var_mean_dia / var_mean_non_dia
+                csc_loss = var_mean_dia / var_mean_non_dia
                 
-                loss += self.var_loss_weight * var_loss
+                loss += self.csc_loss_weight * csc_loss
 
             return loss
         else:
