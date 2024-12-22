@@ -2,7 +2,7 @@
 
 Xiaolun Jing, Genke Yang, Jian Chu
 
-This is the official code implementation of the paper "GLCCL: Global-Local Multi-grained Contrastive Consistent Learning for Text-Video Retrieval", the checkpoint will be released soon.
+This is the official code implementation of the paper "GLCCL: Global-Local Multi-grained Contrastive Consistency Learning for Text-Video Retrieval", the checkpoint will be released soon.
 
 We are continuously refactoring our code, be patient and wait for the latest updates!
 
@@ -14,7 +14,7 @@ Figure 1. Illustration of the partially related semantic correspondence between 
 
 ## :herb: Method
 ![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/framework.jpg?raw=true)
-Figure 2. Overview of our proposed Global-Local Contrastive Consistent Learning model (GLCCL). There are two key designs in GLCCL: (1) The global-local interaction module for generating semantically relevant video features with different granularity in a text-guided manner. (2) The contrastive score consistency loss for promoting positive pairs consistency learning and suppressing negative pairs consistency learning.
+Figure 2. Overview of our proposed Global-Local Contrastive Consistency Learning model (GLCCL). There are two key designs in GLCCL: (1) The global-local interaction module for generating semantically relevant video features with different granularity in a text-guided manner. (2) The contrastive score consistency loss for promoting positive pairs consistency learning and suppressing negative pairs consistency learning.
 
 ## :mag: Usage 
 
