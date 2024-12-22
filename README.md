@@ -1,20 +1,20 @@
-# GLCCL: Global-Local Multi-grained Contrastive Consistent Learning for Text-Video Retrieval
+# GLCCL: Global-Local Multi-grained Contrastive Consistency Learning for Text-Video Retrieval
 
-[Xiaolun Jing](https://scholar.google.com/citations?hl=zh-CN&user=LsozN5kAAAAJ), Genke Yang, Jian Chu
+Xiaolun Jing, Genke Yang, Jian Chu
 
 This is the official code implementation of the paper "GLCCL: Global-Local Multi-grained Contrastive Consistent Learning for Text-Video Retrieval", the checkpoint will be released soon.
 
 We are continuously refactoring our code, be patient and wait for the latest updates!
 
 ## :star: Overview
-Text-video retrieval aims to find the most semantically similar videos with given text queries. However, since videos contain more diverse content than texts, the main semantics expressed by each text-video pair is often partially relevant. The primary methods involve the utilization of language-video attention module to better align texts and videos. Though effective, this paradigm inevitably introduces prohibitive computational overhead, resulting in inefficient retrieval. In this paper, we propose a simple yet effective method called Global-Local Contrastive Consistent Learning (GLCCL) to achieve texts and videos semantics alignment. Specifically, we design a parameter-free Global-Local Interaction Module (GLIM) to generate semantic-related frame and video features in a text-guided manner. Furthermore, we devise a Contrastive Score Consistency (CSC) loss to promote consistent learning among different scores on positive pairs and suppress consistent learning on negative pairs. Extensive experiments on the MSR-VTT, DiDeMo and VATEX datasets demonstrate the superiority of our approach. 
+Text-video retrieval aims to find the most semantically similar videos with given text queries. However, since videos contain more diverse content than texts, the main semantics expressed by each text-video pair is often partially relevant. The primary methods involve the utilization of language-video attention module to better align texts and videos. Though effective, this paradigm inevitably introduces prohibitive computational overhead, resulting in inefficient retrieval. In this paper, we propose a simple yet effective method called Global-Local Contrastive Consistency Learning (GLCCL) to achieve texts and videos semantics alignment. Specifically, we design a parameter-free Global-Local Interaction Module (GLIM) to generate semantic-related frame and video features in a text-guided manner. Furthermore, we devise an auxiliary Contrastive Score Consistency (CSC) loss to promote consistency learning among different scores on positive pairs and suppress consistency learning on negative pairs. Extensive experiments on three benchmark datasets demonstrate the superiority and effectiveness of our approach, including MSR-VTT, DiDeMo and VATEX.
 
 ![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/motivation.jpg?raw=true)
 Figure 1. Illustration of the partially related semantic correspondence between caption (words) and frames from MSR-VTT. Both textual features purely capture sub-regions of frames.
 
 ## :herb: Method
 ![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/framework.jpg?raw=true)
-Figure 2. Overview of our proposed Global-Local Contrastive Consistent Learning model (GLCCL). There are two key designs in GLCCL: (1) The global-local interaction module for generating semantically relevant video features with different granularity in a text-guided manner. (2) The contrastive score consistency loss for promoting positive pairs consistent learning and suppressing negative pairs consistent learning.
+Figure 2. Overview of our proposed Global-Local Contrastive Consistent Learning model (GLCCL). There are two key designs in GLCCL: (1) The global-local interaction module for generating semantically relevant video features with different granularity in a text-guided manner. (2) The contrastive score consistency loss for promoting positive pairs consistency learning and suppressing negative pairs consistency learning.
 
 ## :mag: Usage 
 
@@ -106,7 +106,11 @@ main_glccl.py --do_train --num_thread_reader=8 \
 ![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/results.jpg?raw=true)
 
 ## :bell: Visualization
-![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/visualization.jpg?raw=true)
+### T2V Visualization
+![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/t2v_visualization.jpg?raw=true)
+
+### V2T Visualization
+![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/v2t_visualization.jpg?raw=true)
 
 ## Acknowledgments
 
