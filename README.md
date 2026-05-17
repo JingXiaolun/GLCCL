@@ -1,10 +1,21 @@
-# GLCCL: Global-Local Multi-grained Contrastive Consistency Learning for Text-Video Retrieval
+# 【CAC'2025 :fire: 】 Text-Video Retrieval With Global-Local Contrastive Consistency Learning
 
-Xiaolun Jing, Genke Yang, Jian Chu
+This is the implementation of CAC 2025 paper [Text-Video Retrieval With Global-Local Contrastive Consistency Learning](https://doi.org/10.1109/CAC67268.2025.11487249)
 
-This is the official code implementation of the paper "GLCCL: Global-Local Multi-grained Contrastive Consistency Learning for Text-Video Retrieval", the checkpoint will be released soon.
-
-We are continuously refactoring our code, be patient and wait for the latest updates!
+## :pushpin: Citation
+If you find our method useful in your work, please cite:
+```bibtex
+@INPROCEEDINGS{11487249,
+  author={Jing, Xiaolun and Yang, Xinxing and Yang, Genke},
+  booktitle={2025 China Automation Congress (CAC)}, 
+  title={Text-Video Retrieval With Global-Local Contrastive Consistency Learning}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1621-1626},
+  keywords={Earth Observing System;Artificial satellites;Motion pictures;Broadcasting;Text to video;Videos;Video equipment;Protocols;HTTP;Location awareness;Global-Local Interaction;Contrastive Consistency Learning;Text-Video Retrieval},
+  doi={10.1109/CAC67268.2025.11487249}}
+```
 
 ## :star: Overview
 Text-video retrieval aims to find the most semantically similar videos with given text queries. However, since videos contain more diverse content than texts, the main semantics expressed by each text-video pair is often partially relevant. The primary methods involve the utilization of language-video attention module to better align texts and videos. Though effective, this paradigm inevitably introduces prohibitive computational overhead, resulting in inefficient retrieval. In this paper, we propose a simple yet effective method called Global-Local Contrastive Consistency Learning (GLCCL) to achieve texts and videos semantics alignment. Specifically, we design a parameter-free Global-Local Interaction Module (GLIM) to generate semantic-related frame and video features in a text-guided manner. Furthermore, we devise an auxiliary Contrastive Score Consistency (CSC) loss to promote consistency learning among different scores on positive pairs and suppress consistency learning on negative pairs. Extensive experiments on three benchmark datasets demonstrate the superiority and effectiveness of our approach, including MSR-VTT, DiDeMo and VATEX.
@@ -16,14 +27,20 @@ Figure 1. Illustration of the partially related semantic correspondence between 
 ![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/framework.jpg?raw=true)
 Figure 2. Overview of our proposed Global-Local Contrastive Consistency Learning model (GLCCL). There are two key designs in GLCCL: (1) The global-local interaction module for generating semantically relevant video features with different granularity in a text-guided manner. (2) The contrastive score consistency loss for promoting positive pairs consistency learning and suppressing negative pairs consistency learning.
 
-## :mag: Usage 
+## :rocket: Quick Start 
 
-### Requirement
+### Setup code environment
 ```bash
 pip install -r requirements.txt
 ```
 ### Datasets
 We train our model on MSR-VTT, DiDeMo and VATEX datasets respectively. Please refer to this [repo](https://github.com/ArrowLuo/CLIP4Clip) for data preparation.
+
+| Datasets  | Google Cloud    | Baidu Yun | Peking University Yun|
+|:------:|:------:|:------:|:------:|
+| MSR-VTT  | [Download](https://drive.google.com/drive/folders/1LYVUCPRxpKMRjCSfB_Gz-ugQa88FqDu_)  | [Download](https://pan.baidu.com/share/init?surl=Gdf6ivybZkpua5z1HsCWRA&pwd=enav) | [Download](https://disk.pku.edu.cn/anyshare/zh-cn/link/AA6A028EE7EF5C48A788118B82D6ABE0C5?_tb=none&expires_at=1970-01-01T08%3A00%3A00%2B08%3A00&item_type=folder&password_required=false&title=MSRVTT&type=anonymous) |
+| DiDeMo  | TODO  | [Download](https://pan.baidu.com/s/1Tsy9nb1hWzeXaZ4xr7qoTg?pwd=c842#list/path=%2F) | [Download](https://disk.pku.edu.cn/anyshare/zh-cn/link/AA14E48D1333114022B736291D60350FA5?_tb=none&expires_at=1970-01-01T08%3A00%3A00%2B08%3A00&item_type=folder&password_required=false&title=didemo&type=anonymous) |
+| VATEX  | TODO  | TODO | TODO |
 
 ## How to Run
 Download CLIP (ViT-B/32) weight,
@@ -112,6 +129,6 @@ main_glccl.py --do_train --num_thread_reader=8 \
 ### V2T Visualization
 ![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/v2t_visualization.jpg?raw=true)
 
-## Acknowledgments
+## :reminder_ribbon: Acknowledgments
 
 The implementation of GLCCL relies on resources from [CLIP4Clip](https://github.com/ArrowLuo/CLIP4Clip "CLIP4Clip") and [CLIP](https://github.com/openai/CLIP "CLIP"). We thank the original authors for their open-sourcing.
