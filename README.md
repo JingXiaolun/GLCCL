@@ -1,8 +1,8 @@
 # 【CAC'2025 :fire: 】 Text-Video Retrieval With Global-Local Contrastive Consistency Learning
 
 [![CAC](https://img.shields.io/badge/CAC-2025-yellow.svg)](https://doi.org/10.1109/CAC67268.2025.11487249)
-This is the implementation of CAC 2025 paper [Text-Video Retrieval With Global-Local Contrastive Consistency Learning](https://doi.org/10.1109/CAC67268.2025.11487249).
 
+This is the implementation of CAC 2025 paper [Text-Video Retrieval With Global-Local Contrastive Consistency Learning](https://doi.org/10.1109/CAC67268.2025.11487249).
 
 ## :pushpin: Citation
 If you find our method useful in your work, please cite:
