@@ -22,15 +22,11 @@ If you find our method useful in your work, please cite:
   doi={10.1109/CAC67268.2025.11487249}}
 ```
 
-## :star: Overview
+## :closed_book: Overview
 Text-video retrieval aims to find the most semantically similar videos with given text queries. However, since videos contain more diverse content than texts, the main semantics expressed by each text-video pair is often partially relevant. The primary methods involve the utilization of language-video attention module to better align texts and videos. Though effective, this paradigm inevitably introduces prohibitive computational overhead, resulting in inefficient retrieval. In this paper, we propose a simple yet effective method called Global-Local Contrastive Consistency Learning (GLCCL) to achieve texts and videos semantics alignment. Specifically, we design a parameter-free Global-Local Interaction Module (GLIM) to generate semantic-related frame and video features in a text-guided manner. Furthermore, we devise an auxiliary Contrastive Score Consistency (CSC) loss to promote consistency learning among different scores on positive pairs and suppress consistency learning on negative pairs. Extensive experiments on three benchmark datasets demonstrate the superiority and effectiveness of our approach, including MSR-VTT, DiDeMo and VATEX.
 
-![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/motivation.jpg?raw=true)
-Figure 1. Illustration of the partially related semantic correspondence between caption (words) and frames from MSR-VTT. Both textual features purely capture sub-regions of frames.
-
-## :herb: Method
+## :books: Method
 ![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/framework.jpg?raw=true)
-Figure 2. Overview of our proposed Global-Local Contrastive Consistency Learning model (GLCCL). There are two key designs in GLCCL: (1) The global-local interaction module for generating semantically relevant video features with different granularity in a text-guided manner. (2) The contrastive score consistency loss for promoting positive pairs consistency learning and suppressing negative pairs consistency learning.
 
 ## :rocket: Quick Start 
 
@@ -47,20 +43,17 @@ We train our model on MSR-VTT, DiDeMo and VATEX datasets respectively. Please re
 | DiDeMo  | TODO  | [Download](https://pan.baidu.com/s/1Tsy9nb1hWzeXaZ4xr7qoTg?pwd=c842#list/path=%2F) | [Download](https://disk.pku.edu.cn/anyshare/zh-cn/link/AA14E48D1333114022B736291D60350FA5?_tb=none&expires_at=1970-01-01T08%3A00%3A00%2B08%3A00&item_type=folder&password_required=false&title=didemo&type=anonymous) |
 | VATEX  | TODO  | TODO | TODO |
 
-## How to Run
-Download CLIP (ViT-B/32) weight,
+### Download CLIP Model
 ```bash
 wget -P ./modules https://openaipublic.azureedge.net/clip/models/40d365715913c9da98579312b702a82c18be219cc2a73407c4526f58eba950af/ViT-B-32.pt
-```
-or, download CLIP (ViT-B/16) weight,
-```bash
 wget -P ./modules https://openaipublic.azureedge.net/clip/models/5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f/ViT-B-16.pt
 ```
-Then, run
+### Compress Video
+```bash
+python preprocess/compress_video.py --input_root [raw_video_path] --output_root [compressed_video_path]
+```
 
-
-**MSR-VTT**
-
+### Train on MSR-VTT
 ```bash
 python -m torch.distributed.launch --nproc_per_node=4 --master_port='30400' \
 main_glccl.py --do_train --num_thread_reader=8 \
@@ -82,8 +75,7 @@ main_glccl.py --do_train --num_thread_reader=8 \
 --pretrained_clip_name ViT-B/32
 ```
 
-**DiDeMo**
-
+### Train on DiDeMo
 ```bash
 python -m torch.distributed.launch --nproc_per_node=8 --master_port='30401' \
 main_glccl.py --do_train --num_thread_reader=8 \
@@ -103,8 +95,7 @@ main_glccl.py --do_train --num_thread_reader=8 \
 --pretrained_clip_name ViT-B/32
 ```
 
-**VATEX**
-
+### Train on VATEX
 ```bash
 python -m torch.distributed.launch --nproc_per_node=4 --master_port='30402' \
 main_glccl.py --do_train --num_thread_reader=8 \
@@ -123,16 +114,6 @@ main_glccl.py --do_train --num_thread_reader=8 \
 --loose_type --linear_patch 2d --sim_header seqTransf \
 --pretrained_clip_name ViT-B/32
 ```
-
-## :telescope: Experiments
-![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/results.jpg?raw=true)
-
-## :bell: Visualization
-### T2V Visualization
-![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/t2v_visualization.jpg?raw=true)
-
-### V2T Visualization
-![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/v2t_visualization.jpg?raw=true)
 
 ## :reminder_ribbon: Acknowledgments
 
