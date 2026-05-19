@@ -1,7 +1,8 @@
 # 【CAC'2025 :fire:】 Text-Video Retrieval With Global-Local Contrastive Consistency Learning
 
 <p align="center">
-    <a href="https://doi.org/10.1109/CAC67268.2025.11487249"><img src="https://img.shields.io/badge/CAC-2025-yellow.svg" alt="Build Status">
+    <a href="https://doi.org/10.1109/CAC67268.2025.11487249"><img src="https://img.shields.io/badge/CAC-2025-yellow.svg" alt="Build Status"></a>
+    <a href="https://jingxiaolun.github.io/GLCCL"><img src="https://img.shields.io/badge/Project-GLCCL-blue.svg" alt="Build Status"></a>
     <a href="https://arxiv.org/abs/2605.17959"><img src="https://img.shields.io/badge/Paper-arxiv.2605.17959-b31b1b.svg" alt="Build Status"></a>
 </p>
    
