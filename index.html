@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Text-Video Retrieval With Global-Local Contrastive Consistency Learning</title>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Text-Video Retrieval With Global-Local Contrastive Consistency Learning</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Xiaolun Jing<sup>1,2</sup>, </span>
+            <span class="author-block">Genke Yang<sup>1,2 *</sup>, </span>
+            <span class="author-block">Jian Chu<sup>1,2</sup>, </span>
+          </div>
+
+          <div class="is-size-8 publication-authors">
+            <span class="author-block"><sup>1</sup>Ningbo Artificial Intelligence Institute, Shanghai Jiao Tong University, China </span>
+            <span class="author-block"><sup>2</sup>Department of Automation, Shanghai Jiao Tong University, China </span> <br />
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2605.17959.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/JingXiaolun/GLCCL"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+        free-viewpoint
+        portraits.
+      </h2>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+          ext-video retrieval aims to find the most semantically similar videos with given text queries. However, since videos
+          contain more diverse content than texts, the main semantics
+          expressed by each text-video pair is often partially relevant.
+          The primary methods involve the utilization of language-video
+          attention module to align texts and videos. Though effective, this
+          paradigm inevitably introduces prohibitive computational overhead, resulting in inefficient retrieval. In this paper, we propose a
+          simple yet effective method called Global-Local Contrastive Consistency Learning (GLCCL) to achieve texts and videos semantics
+          alignment. Specifically, we design a parameter-free Global-Local
+          Interaction Module (GLIM) to generate semantic-related frame
+          and video features in a text-guided manner. Furthermore, a
+          Contrastive Score Consistency (CSC) loss is developed to promote
+          consistency learning among different scores on positive pairs
+          and suppress consistency learning on negative pairs. Empirical
+          evidence suggests that CSC loss provides the model with robust
+          discriminative power between positives and hard negatives.
+          Extensive experiments on three benchmark datasets, including
+          MSR-VTT, DiDeMo and VATEX, demonstrate the effectiveness
+          and superiority of our approach.
+         </p>
+        </div>
+        <img src="./static/images/framework.jpg"
+                class="abstract-image"
+                alt="Interpolate start reference image."/>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+
+        <h2 class="title is-3">Visualization</h2>
+
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-15 has-text-centered">
+            <img src="./static/images/t2v_visualization.jpg.jpg"
+                class="abstract-image"
+                alt="Interpolate start reference image."/>
+            <p>Text-to-Video</p>
+          </div>
+        </div>
+        <br/>
+
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-15 has-text-centered">
+            <img src="./static/images/v2t_visualization.jpg.jpg"
+                class="abstract-image"
+                alt="Interpolate start reference image."/>
+            <p>Video-to-Text</p>
+          </div>
+        </div>
+        <br/>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            The source code is based on the <a href="https://nerfies.github.io/">Nerfies</a> project page. We thank the authors for creating and opening it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

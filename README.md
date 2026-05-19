@@ -1,11 +1,11 @@
 # 【CAC'2025 :fire:】 Text-Video Retrieval With Global-Local Contrastive Consistency Learning
 
 <p align="center">
-    <a href="https://doi.org/10.1109/CAC67268.2025.11487249">
-    <img src="https://img.shields.io/badge/CAC-2025-yellow.svg" alt="Build Status">
+    <a href="https://doi.org/10.1109/CAC67268.2025.11487249"><img src="https://img.shields.io/badge/CAC-2025-yellow.svg" alt="Build Status">
+    <a href="https://arxiv.org/abs/2605.17959"><img src="https://img.shields.io/badge/Paper-arxiv.2605.17959-b31b1b.svg" alt="Build Status"></a>
 </p>
    
-This is the implementation of CAC 2025 paper [Text-Video Retrieval With Global-Local Contrastive Consistency Learning](https://doi.org/10.1109/CAC67268.2025.11487249).
+This is the implementation of CAC 2025 paper [Text-Video Retrieval With Global-Local Contrastive Consistency Learning](https://arxiv.org/pdf/2605.17959).
 
 ## :pushpin: Citation
 If you find our method useful in your work, please cite:
@@ -26,7 +26,7 @@ If you find our method useful in your work, please cite:
 Text-video retrieval aims to find the most semantically similar videos with given text queries. However, since videos contain more diverse content than texts, the main semantics expressed by each text-video pair is often partially relevant. The primary methods involve the utilization of language-video attention module to better align texts and videos. Though effective, this paradigm inevitably introduces prohibitive computational overhead, resulting in inefficient retrieval. In this paper, we propose a simple yet effective method called Global-Local Contrastive Consistency Learning (GLCCL) to achieve texts and videos semantics alignment. Specifically, we design a parameter-free Global-Local Interaction Module (GLIM) to generate semantic-related frame and video features in a text-guided manner. Furthermore, we devise an auxiliary Contrastive Score Consistency (CSC) loss to promote consistency learning among different scores on positive pairs and suppress consistency learning on negative pairs. Extensive experiments on three benchmark datasets demonstrate the superiority and effectiveness of our approach, including MSR-VTT, DiDeMo and VATEX.
 
 ## :books: Method
-![image](https://github.com/JingXiaolun/GLCCL/blob/master/image/framework.jpg?raw=true)
+![image](https://github.com/JingXiaolun/GLCCL/blob/master/static/images/framework.jpg?raw=true)
 
 ## :rocket: Quick Start 
 
